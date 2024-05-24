@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "paths": {
+    "/raw-data": {
+      "name": "/raw-data",
+      "lambdaFunction": "rawDataHandler",
+      "permissions": {
+        "groups": {
+          "Admins": [
+            "create",
+            "read",
+            "update",
+            "delete"
+          ]
+        },
+        "setting": "private"
+      }
+    }
+  }
+}

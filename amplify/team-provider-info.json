@@ -1,0 +1,31 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-datatokenizationbe-dev-cce54-authRole",
+      "UnauthRoleArn": "arn:aws:iam::975050212238:role/amplify-datatokenizationbe-dev-cce54-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::975050212238:role/amplify-datatokenizationbe-dev-cce54-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-datatokenizationbe-dev-cce54-deployment",
+      "UnauthRoleName": "amplify-datatokenizationbe-dev-cce54-unauthRole",
+      "StackName": "amplify-datatokenizationbe-dev-cce54",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:975050212238:stack/amplify-datatokenizationbe-dev-cce54/36a4aa50-19de-11ef-8a74-0aa2a86f4737",
+      "AmplifyAppId": "dp2bftuj8lw4j"
+    },
+    "categories": {
+      "auth": {
+        "datatokenizationbefec6c896": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "rawDataLambda": {},
+        "rawDataHandler": {
+          "deploymentBucketName": "amplify-datatokenizationbe-dev-cce54-deployment",
+          "s3Key": "amplify-builds/rawDataHandler-37347836424e4d34326e-build.zip"
+        }
+      },
+      "api": {
+        "rawDataApi": {}
+      }
+    }
+  }
+}
