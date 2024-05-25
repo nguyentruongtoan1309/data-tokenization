@@ -1,14 +1,13 @@
 import { useState } from 'react';
-// import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { uploadData } from 'aws-amplify/storage';
 import { toast } from 'react-toastify';
 
-interface IFile {
-    url: string,
-    name: string,
-}
+// interface IFile {
+//     url: string,
+//     name: string,
+// }
 
 // interface File {
 //     name: string;
@@ -18,19 +17,17 @@ interface IFile {
 //     content: ArrayBuffer;
 // }
 
-
 function FileUpload() {
-    const [files, setFiles] = useState<Array<IFile>>([]);
+    const [files, setFiles] = useState<any>([]);
 
     const handleFileChange = (e: React.ChangeEvent) => {
         const target = e.target as HTMLInputElement;
-
         if (target.files && target.files.length) {
-            const newFiles: IFile[] = Array.from(target.files).map((file) => ({
-                url: URL.createObjectURL(file),
-                name: file.name,
-            }));
-            setFiles(newFiles);
+            // const newFiles: IFile[] = Array.from(target.files).map((file) => ({
+            //     url: URL.createObjectURL(file),
+            //     name: file.name,
+            // }));
+            setFiles(target.files as any);
         }
     };
 
@@ -43,12 +40,11 @@ function FileUpload() {
         }
 
         const fileName = files[0].name;
-        // const fileToUpload = new File([files as any], fileName);
 
         try {
             const result = await uploadData({
                 path: `rawDara/${fileName}`,
-                data: files[0].url,
+                data: files[0] as any,
                 options: {
                     onProgress: ({ transferredBytes, totalBytes }) => {
                         if (totalBytes) {
@@ -70,7 +66,6 @@ function FileUpload() {
 
     return (
         <div className="grid text-center w-full justify-center items-center gap-1.5">
-            {/* <Label htmlFor="file">File</Label> */}
             <Input id="file" type="file" onChange={handleFileChange} />
             <Button onClick={uploadFiles}>Upload</Button>
         </div>
