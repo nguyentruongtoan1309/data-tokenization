@@ -17,11 +17,17 @@
         "userPoolGroups": {}
       },
       "function": {
-        "rawDataLambda": {},
+        "S3Triggerde9b7ba6": {
+          "deploymentBucketName": "amplify-datatokenizationbe-dev-cce54-deployment",
+          "s3Key": "amplify-builds/S3Triggerde9b7ba6-3530397a587568393037-build.zip"
+        },
         "rawDataHandler": {
           "deploymentBucketName": "amplify-datatokenizationbe-dev-cce54-deployment",
-          "s3Key": "amplify-builds/rawDataHandler-37347836424e4d34326e-build.zip"
+          "s3Key": "amplify-builds/rawDataHandler-6c516e3363526e2b6f31-build.zip"
         }
+      },
+      "storage": {
+        "rawdatastorage": {}
       },
       "api": {
         "rawDataApi": {}

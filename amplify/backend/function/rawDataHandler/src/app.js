@@ -8,10 +8,17 @@ See the License for the specific language governing permissions and limitations 
 
 const express = require("express");
 const awsServerlessExpressMiddleware = require("aws-serverless-express/middleware");
+const { createPresignedUrlWithClient, getData } = require("./utils");
 
 // declare a new express app
 const app = express();
 app.use(awsServerlessExpressMiddleware.eventContext());
+
+// Middleware to capture the event object and attach it to the req object
+app.use((req, res, next) => {
+  req.event = req.apiGateway.event;
+  next();
+});
 
 // Enable CORS for all methods
 app.use(function (req, res, next) {
@@ -29,49 +36,36 @@ app.get("/raw-data", function (req, res) {
   res.json({ success: "get call succeed!", url: req.url });
 });
 
-app.get("/raw-data/*", function (req, res) {
-  // Add your code here
-  res.json({ success: "get call succeed!", url: req.url });
+app.get("/data", async function (req, res) {
+  try {
+    console.log("Get data request event: ", req.event);
+    const dataResult = await getData(req?.event);
+    res.json({ success: true, data: dataResult });
+  } catch (error) {
+    console.log("get data ERROR: ", error?.stack || error?.message);
+    res.json({ success: false, data: null, message: error.message });
+  }
 });
 
-/****************************
- * Example post method *
- ****************************/
+app.get("/raw-data/generate-presigned-url", async function (req, res) {
+  try {
+    const presignedUrl = await createPresignedUrlWithClient();
+    res.json({ success: true, data: presignedUrl });
+  } catch (error) {
+    console.log(
+      "generate-presigned-url ERROR: ",
+      error?.stack || error?.message
+    );
+    res.json({ success: false, data: null, message: error.message });
+  }
+});
 
 app.post("/raw-data", function (req, res) {
   // Add your code here
   res.json({ success: "post call succeed!", url: req.url, body: req.body });
 });
 
-app.post("/raw-data/*", function (req, res) {
-  // Add your code here
-  res.json({ success: "post call succeed!", url: req.url, body: req.body });
-});
-
-/****************************
- * Example put method *
- ****************************/
-
-app.put("/raw-data", function (req, res) {
-  // Add your code here
-  res.json({ success: "put call succeed!", url: req.url, body: req.body });
-});
-
-app.put("/raw-data/*", function (req, res) {
-  // Add your code here
-  res.json({ success: "put call succeed!", url: req.url, body: req.body });
-});
-
-/****************************
- * Example delete method *
- ****************************/
-
 app.delete("/raw-data", function (req, res) {
-  // Add your code here
-  res.json({ success: "delete call succeed!", url: req.url });
-});
-
-app.delete("/raw-data/*", function (req, res) {
   // Add your code here
   res.json({ success: "delete call succeed!", url: req.url });
 });
