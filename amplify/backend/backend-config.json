@@ -72,6 +72,11 @@
     }
   },
   "function": {
+    "S3Triggerde9b7ba6": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "rawDataHandler": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -79,6 +84,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_S3Triggerde9b7ba6_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Triggerde9b7ba6"
+        }
+      ]
+    },
+    "AMPLIFY_function_S3Triggerde9b7ba6_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Triggerde9b7ba6"
+        }
+      ]
+    },
     "AMPLIFY_function_rawDataHandler_deploymentBucketName": {
       "usedBy": [
         {
@@ -94,6 +115,37 @@
           "resourceName": "rawDataHandler"
         }
       ]
+    }
+  },
+  "storage": {
+    "rawdatastorage": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ],
+          "category": "function",
+          "resourceName": "S3Triggerde9b7ba6"
+        },
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "datatokenizationbefec6c896"
+        },
+        {
+          "attributes": [
+            "AdminsGroupRole"
+          ],
+          "category": "auth",
+          "resourceName": "userPoolGroups"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }

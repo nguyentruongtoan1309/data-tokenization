@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "datatokenizationbeLambdaRole9daa5672",
+            "datatokenizationbeLambdaRole331b7cf6",
             {
               "Fn::Join": [
                 "",
                 [
-                  "datatokenizationbeLambdaRole9daa5672",
+                  "datatokenizationbeLambdaRole331b7cf6",
                   "-",
                   {
                     "Ref": "env"

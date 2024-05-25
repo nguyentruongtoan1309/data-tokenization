@@ -5,6 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { signIn } from 'aws-amplify/auth';
+import { Navigate, useNavigate } from 'react-router';
+import { useAppContext } from '@/contexts/AppContext';
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { AuthType } from '@/constants';
+import { LoadingSpinner } from '@/components/ui/spinner';
 
 const formSchema = z.object({
     username: z.string().min(1, { message: 'Username is required' }),
@@ -12,7 +18,10 @@ const formSchema = z.object({
 
 });
 
-export function LoginForm() {
+const LoginPage = () => {
+    const { authStatus } = useAuthenticator(context => [context.authStatus]);
+    const { isLoggedIn } = useAppContext();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -22,7 +31,25 @@ export function LoginForm() {
     });
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
+        // console.log(values);
+        const { username, password } = values;
+        signIn({
+            username, password
+        });
+    }
+    
+    if (authStatus === AuthType.CONFIGURING) {
+        if (!isLoggedIn) {
+            return (
+                <div className="flex justify-center py-5">
+                    <LoadingSpinner size={60} />
+                </div>
+            );
+        }
+    }
+
+    if (isLoggedIn) {
+        return <Navigate to='/' />;
     }
 
     return (
@@ -51,7 +78,7 @@ export function LoginForm() {
                                     name="password"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <Input placeholder="Password" {...field} />
+                                            <Input placeholder="Password" type='password' {...field} />
                                             <FormMessage />
                                         </FormItem>
                                     )}
@@ -69,4 +96,6 @@ export function LoginForm() {
             </div>
         </div>
     );
-}
+};
+
+export default LoginPage;

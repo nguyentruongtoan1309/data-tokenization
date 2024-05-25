@@ -1,0 +1,16 @@
+{
+  "resourceName": "rawdatastorage",
+  "policyUUID": "7ff0e2dc",
+  "bucketName": "rawdatabucket",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [],
+  "triggerFunction": "S3Triggerde9b7ba6",
+  "groupAccess": {
+    "Admins": [
+      "CREATE_AND_UPDATE",
+      "READ",
+      "DELETE"
+    ]
+  }
+}

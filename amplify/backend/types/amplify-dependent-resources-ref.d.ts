@@ -22,11 +22,24 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
+    "S3Triggerde9b7ba6": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "rawDataHandler": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
       "Name": "string",
+      "Region": "string"
+    }
+  },
+  "storage": {
+    "rawdatastorage": {
+      "BucketName": "string",
       "Region": "string"
     }
   }
