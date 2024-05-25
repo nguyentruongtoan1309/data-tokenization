@@ -21,6 +21,7 @@ export async function getDataByRole() {
 		});
 		const response = await restOperation.response;
 		console.log('GET getDataByRole succeeded: ', await response?.body.json());
+		return await response?.body.json();
 	} catch (e) {
 		console.log('GET getDataByRole failed: ', e);
 	}
