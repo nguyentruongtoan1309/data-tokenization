@@ -1,4 +1,4 @@
-import { getDataByRole, getRawData } from '@/apis/amplify';
+import { getDataByRole } from '@/apis/amplify';
 import { Button } from '@/components/ui/button';
 import FileUpload from '@/components/upload/FileUpload';
 import config from '@/config/amplifyconfiguration.json';
@@ -55,14 +55,8 @@ const HomePage = () => {
 				<Button className="mx-1" onClick={handleSignOut}>
 					Log out
 				</Button>
-				<Button className="mx-1" onClick={currentSession}>
-					Get token
-				</Button>
-				<Button className="mx-1" onClick={getRawData}>
-					Get raw data
-				</Button>
 				<Button className="mx-1" onClick={handleGetDataByRole}>
-					Get data by role
+					Get data
 				</Button>
 			</div>
 			<FileUpload />

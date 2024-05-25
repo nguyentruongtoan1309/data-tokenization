@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { uploadData } from 'aws-amplify/storage';
 import { toast } from 'react-toastify';
+import { currentSession } from '@/lib/utils';
 
 // interface IFile {
 //     url: string,
@@ -18,58 +19,87 @@ import { toast } from 'react-toastify';
 // }
 
 function FileUpload() {
-    const [files, setFiles] = useState<any>([]);
+	const [files, setFiles] = useState<any>([]);
+	const [isValidFile, setIsValidFile] = useState(false);
+	const [isAdmin, setIsAdmin] = useState(false);
 
-    const handleFileChange = (e: React.ChangeEvent) => {
-        const target = e.target as HTMLInputElement;
-        if (target.files && target.files.length) {
-            // const newFiles: IFile[] = Array.from(target.files).map((file) => ({
-            //     url: URL.createObjectURL(file),
-            //     name: file.name,
-            // }));
-            setFiles(target.files as any);
-        }
-    };
+	useEffect(() => {
+		const fetchUserGroups = async () => {
+			const accessToken = (await currentSession())?.accessToken;
+			if ((accessToken?.payload['cognito:groups'] || [])?.includes('Admins')) {
+				setIsAdmin(true);
+			}
+		};
 
-    const uploadFiles = async () => {
-        if (!files.length) {
-            toast.error("Please choose file !", {
-                position: 'top-right'
-            });
-            return;
-        }
+		fetchUserGroups();
+	}, []);
 
-        const fileName = files[0].name;
+	const handleFileChange = (e: React.ChangeEvent) => {
+		const target = e.target as HTMLInputElement;
+		if (target.files && target.files.length) {
+			const file = target.files[0];
+			const fileType = file.type;
 
-        try {
-            const result = await uploadData({
-                path: `rawDara/${fileName}`,
-                data: files[0] as any,
-                options: {
-                    onProgress: ({ transferredBytes, totalBytes }) => {
-                        if (totalBytes) {
-                            console.log(
-                                `Upload progress ${Math.round((transferredBytes / totalBytes) * 100)
-                                } %`
-                            );
-                        }
-                    }
-                }
-            }).result;
-            console.log('Succeeded: ', result);
-        } catch (error) {
-            toast.error((error as Error)?.message, {
-                position: 'top-right'
-            });
-        }
-    };
+			// Check if the file is a CSV
+			if (fileType !== 'text/csv') {
+				toast.error('Please upload a CSV file!', {
+					position: 'top-right',
+				});
+				setIsValidFile(false);
+				return;
+			}
 
-    return (
-        <div className="grid text-center w-full justify-center items-center gap-1.5">
-            <Input id="file" type="file" onChange={handleFileChange} />
-            <Button onClick={uploadFiles}>Upload</Button>
-        </div>
-    );
+			setFiles([file]);
+			setIsValidFile(true);
+		} else {
+			setIsValidFile(false);
+		}
+	};
+
+	const uploadFiles = async () => {
+		if (!files.length) {
+			toast.error('Please choose a file!', {
+				position: 'top-right',
+			});
+			return;
+		}
+
+		const file = files[0];
+		const fileName = file.name;
+
+		try {
+			const result = await uploadData({
+				path: `rawData/${fileName}`,
+				data: file,
+				options: {
+					contentType: 'text/csv', // Add metadata for content type
+					onProgress: ({ transferredBytes, totalBytes }) => {
+						if (totalBytes) {
+							console.log(`Upload progress ${Math.round((transferredBytes / totalBytes) * 100)}%`);
+						}
+					},
+				},
+			}).result;
+			console.log('Succeeded: ', result);
+		} catch (error) {
+			toast.error((error as Error)?.message, {
+				position: 'top-right',
+			});
+		}
+	};
+
+	if (!isAdmin) {
+		return null; // Do not render anything if the user is not an admin
+	}
+
+	return (
+		<div className="grid text-center w-full justify-center items-center gap-1.5">
+			<Input id="file" type={'file'} accept={'.csv'} onChange={handleFileChange} />
+			<Button onClick={uploadFiles} disabled={!isValidFile}>
+				Upload
+			</Button>
+		</div>
+	);
 }
 
 export default FileUpload;

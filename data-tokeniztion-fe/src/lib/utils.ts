@@ -21,11 +21,6 @@ export async function currentAuthenticatedUser() {
 export async function currentSession() {
 	try {
 		const { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
-
-		console.log({
-			accessToken: accessToken?.toString(),
-			idToken: idToken?.toString(),
-		});
 		return { accessToken, idToken };
 	} catch (err) {
 		console.log(err);
