@@ -22,7 +22,7 @@ interface IFile {
 function FileUpload() {
     const [files, setFiles] = useState<Array<IFile>>([]);
 
-    const handleFileChange = (e: any) => {
+    const handleFileChange = (e: React.ChangeEvent) => {
         const target = e.target as HTMLInputElement;
 
         if (target.files && target.files.length) {
@@ -43,11 +43,12 @@ function FileUpload() {
         }
 
         const fileName = files[0].name;
+        // const fileToUpload = new File([files as any], fileName);
 
         try {
             const result = await uploadData({
                 path: `rawDara/${fileName}`,
-                data: files as any,
+                data: files[0].url,
                 options: {
                     onProgress: ({ transferredBytes, totalBytes }) => {
                         if (totalBytes) {
@@ -65,13 +66,6 @@ function FileUpload() {
                 position: 'top-right'
             });
         }
-    };
-
-    const uploadFileToS3 = async (url: string, file: string) => {
-        await fetch(url, {
-            method: 'PUT',
-            body: file,
-        });
     };
 
     return (

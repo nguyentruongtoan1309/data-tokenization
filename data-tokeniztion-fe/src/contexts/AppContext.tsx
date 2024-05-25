@@ -14,7 +14,7 @@ interface AppUpdaterContextProps {
 export const AppUpdaterContext = createContext<AppUpdaterContextProps | null>(null);
 
 const AppProvider: React.FC<{ children: React.ReactNode; }> = ({ children }) => {
-    const { user, signOut } = useAuthenticator((context) => [context.user]);
+    const { user } = useAuthenticator((context) => [context.user]);
     const { authStatus } = useAuthenticator(context => [context.authStatus]);
 
     const isLoggedIn = useMemo(() => {

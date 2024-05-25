@@ -7,7 +7,7 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { Amplify } from 'aws-amplify';
 import awsmobile from '../config/aws-exports';
-// import { signOut } from 'aws-amplify/auth';
+import { signOut } from 'aws-amplify/auth';
 
 Amplify.configure(config, {
     API: {
@@ -23,7 +23,7 @@ Amplify.configure(config, {
 Amplify.configure(awsmobile);
 
 const HomePage = () => {
-    const { user, signOut } = useAuthenticator((context) => [context.user]);
+    const { user } = useAuthenticator((context) => [context.user]);
 
     const handleSignOut = async () => {
         await signOut();
