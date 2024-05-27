@@ -9,11 +9,13 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const container = document.getElementById('root');
 const root = createRoot(container!); // createRoot(container!) if you use TypeScript
-root.render(<Authenticator.Provider>
-    <BrowserRouter>
-        <AppProvider>
-            <App />
-            <ToastContainer autoClose={2000} />
-        </AppProvider>
-    </BrowserRouter>
-</Authenticator.Provider>);
+root.render(
+	<BrowserRouter>
+		<Authenticator.Provider>
+			<AppProvider>
+				<App />
+				<ToastContainer autoClose={2000} />
+			</AppProvider>
+		</Authenticator.Provider>
+	</BrowserRouter>,
+);
