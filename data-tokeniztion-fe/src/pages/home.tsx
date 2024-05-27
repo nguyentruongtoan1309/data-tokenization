@@ -1,14 +1,14 @@
 import { getDataByRole } from '@/apis/amplify';
 import { Button } from '@/components/ui/button';
 import FileUpload from '@/components/upload/FileUpload';
-import config from '@/config/amplifyconfiguration.json';
 import { currentSession } from '@/lib/utils';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { Amplify } from 'aws-amplify';
-import awsmobile from '../config/aws-exports';
 import { signOut } from 'aws-amplify/auth';
 import { useState } from 'react';
+import config from '../../../src/amplifyconfiguration.json';
+import awsmobile from '../../../src/aws-exports';
 
 Amplify.configure(config, {
 	API: {
