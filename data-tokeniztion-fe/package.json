@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite --port 3000 --host 0.0.0.0",
-        "build": "tsc-silent -p tsconfig.json --suppress @ && vite build",
+        "build": "npx tsc-silent -p tsconfig.json --suppress @ && vite build",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"",
         "preview": "vite preview"
