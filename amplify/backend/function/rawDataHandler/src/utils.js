@@ -17,12 +17,17 @@ const redshiftCredentials = {
 
 async function getData(event) {
   const userRole = event?.requestContext?.authorizer?.claims["cognito:groups"];
+  const query = event?.queryStringParameters;
   console.log("userRole: ", userRole);
   try {
-    const records = await getFromRedshift();
+    const result = await getFromRedshift(
+      query?.page || 1,
+      query?.pageSize || 20
+    );
+    console.log("getFromRedshift result: ", result);
     const isAdmin = userRole?.includes("Admins");
-    const result = await Promise.all(
-      records.map(
+    const records = await Promise.all(
+      result?.data?.map(
         async (record) =>
           await decryptData(
             record,
@@ -33,33 +38,55 @@ async function getData(event) {
 
     return {
       statusCode: 200,
-      body: result,
+      data: records,
+      pagination: result?.pagination,
     };
   } catch (error) {
     console.error("getData ERROR:", error);
     return {
       statusCode: 500,
-      body: null,
+      data: null,
       message: JSON.stringify({ error: error?.stack || error?.message }),
     };
   }
 }
 
-const getFromRedshift = async () => {
+const getFromRedshift = async (page = 1, pageSize = 20) => {
   try {
     const client = new Client(redshiftCredentials);
     await client.connect();
 
-    const query = `SELECT * FROM data;`;
-    const result = await client.query(query);
+    const offset = (page - 1) * pageSize;
+
+    const query = `SELECT * FROM data LIMIT $1 OFFSET $2;`;
+    const countQuery = `SELECT COUNT(*) FROM data;`;
+
+    const resultPromise = client.query(query, [pageSize, offset]);
+    const countResultPromise = client.query(countQuery);
+
+    const [result, countResult] = await Promise.all([
+      resultPromise,
+      countResultPromise,
+    ]);
 
     await client.end();
 
     if (result.rows.length === 0) {
       throw new Error("Record not found");
     }
-    console.log("getFromRedshift rows: ", result.rows);
-    return result.rows;
+
+    const totalRecords = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalRecords / pageSize);
+
+    return {
+      data: result.rows,
+      pagination: {
+        totalRecords,
+        totalPages,
+        currentPage: page,
+        pageSize,
+      },
+    };
   } catch (error) {
     console.error("getFromRedshift ERROR:", error);
     throw new Error(error?.stack || error?.message);
@@ -69,6 +96,7 @@ const getFromRedshift = async () => {
 const decryptData = async (encryptedData, decryptKeys) => {
   try {
     const decryptedData = {};
+    decryptKeys = decryptKeys?.filter((key) => key !== "id");
 
     for (const key in encryptedData) {
       decryptedData[key] = encryptedData[key];

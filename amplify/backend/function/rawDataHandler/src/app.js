@@ -40,7 +40,7 @@ app.get("/data", async function (req, res) {
   try {
     console.log("Get data request event: ", req.event);
     const dataResult = await getData(req?.event);
-    res.json({ success: true, data: dataResult });
+    res.json({ success: true, ...dataResult });
   } catch (error) {
     console.log("get data ERROR: ", error?.stack || error?.message);
     res.json({ success: false, data: null, message: error.message });

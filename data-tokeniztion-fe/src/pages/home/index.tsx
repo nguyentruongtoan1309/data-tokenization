@@ -21,8 +21,8 @@ const HomePage = () => {
 		try {
 			setIsLoading(true);
 			const data = await getDataByRole();
-			if (data?.data?.body) {
-				setTableData(data?.data?.body);
+			if (data?.data) {
+				setTableData(data?.data);
 				setIsLoading(false);
 			}
 		} catch (error) {
@@ -44,7 +44,11 @@ const HomePage = () => {
 				</Button>
 			</div>
 			<FileUpload />
-			{isLoading ? <div className="flex justify-center py-5"><LoadingSpinner /></div> : null}
+			{isLoading ? (
+				<div className="flex justify-center py-5">
+					<LoadingSpinner />
+				</div>
+			) : null}
 			<TableData tableData={tableData} />
 		</div>
 	);

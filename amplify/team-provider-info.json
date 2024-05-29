@@ -23,7 +23,7 @@
         },
         "rawDataHandler": {
           "deploymentBucketName": "amplify-datatokenizationbe-dev-cce54-deployment",
-          "s3Key": "amplify-builds/rawDataHandler-6c516e3363526e2b6f31-build.zip"
+          "s3Key": "amplify-builds/rawDataHandler-7237474c706a494d397a-build.zip"
         }
       },
       "storage": {
