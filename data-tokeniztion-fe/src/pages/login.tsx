@@ -85,7 +85,7 @@ const LoginPage = () => {
                                 />
 
                                 <div className="py-5">
-                                    <Button className="w-full" type="submit">
+                                    <Button className="w-full text-white" type="submit">
                                         Login
                                     </Button>
                                 </div>

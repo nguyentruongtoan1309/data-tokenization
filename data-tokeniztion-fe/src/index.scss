@@ -1,9 +1,11 @@
 :root {
     --background: linear-gradient(180deg, rgba(0,183,79,1) 0%, rgba(34,115,90,1) 50%, rgba(34,95,115,1) 100%);
+    --bg-table: #fff;
 }
 
 .dark {
     --background: linear-gradient(180deg, #151515 0%, #04431f 50%, #22735a 100%);
+    --bg-table: #141715;
 }
 
 body {

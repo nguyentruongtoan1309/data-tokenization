@@ -9,7 +9,7 @@ const truncate = (str: string, n: number) => {
 const TableData: React.FC<{ tableData: Array<any> }> = ({ tableData }) => {
 	return (
 		tableData.length > 0 && (
-			<Table className='my-5 mx-auto bg-white'>
+			<Table className='my-5 mx-auto bg-[var(--bg-table)]'>
 				<TableHeader>
 					<TableRow>
 						{Object.keys(tableData[0]).map((key) => (
