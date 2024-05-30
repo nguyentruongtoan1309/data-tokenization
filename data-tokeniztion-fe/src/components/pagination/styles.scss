@@ -1,0 +1,22 @@
+.pagination {
+    @apply flex items-center;
+
+    li {
+        margin: 0 5px;
+        a{
+            @apply py-2 px-3 leading-none text-white;
+        }
+        &.disabled {
+           a{
+            opacity: 0.5;
+            cursor: no-drop;
+           }
+        }
+        &.selected{
+            @apply font-medium bg-primary rounded-md text-white;
+        }
+        &:hover a{
+            opacity: 0.8;
+        }
+    }
+}

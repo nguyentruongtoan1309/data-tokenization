@@ -88,18 +88,18 @@ function FileUpload() {
 		}
 	};
 
-	if (!isAdmin) {
-		return null; // Do not render anything if the user is not an admin
+	if (isAdmin) {
+		return (
+			<div className="grid text-center w-full justify-center items-center gap-1.5">
+				<Input id="file" type={'file'} accept={'.csv'} onChange={handleFileChange} className="text-white" />
+				<Button className="text-white" onClick={uploadFiles} disabled={!isValidFile}>
+					Upload
+				</Button>
+			</div>
+		);
 	}
 
-	return (
-		<div className="grid text-center w-full justify-center items-center gap-1.5">
-			<Input id="file" type={'file'} accept={'.csv'} onChange={handleFileChange} />
-			<Button onClick={uploadFiles} disabled={!isValidFile}>
-				Upload
-			</Button>
-		</div>
-	);
+	return <div></div>;
 }
 
 export default FileUpload;

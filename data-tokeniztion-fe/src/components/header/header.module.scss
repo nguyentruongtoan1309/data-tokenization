@@ -1,0 +1,22 @@
+.logo{
+    height: 100%;
+    width: 150px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    background-image: url('/images/logo.png');
+    &.vpb{
+        background-size: 220px;
+        background-position: 0 -18px;
+    }
+    &.aws{
+        left: 130px;
+        background-size: 300px;
+        background-position: -200px -5px;
+    }
+}
+
+.title{
+    @apply mx-2;
+    @apply flex items-center justify-center text-white text-base lg:text-2xl xl:text-[24px];
+}

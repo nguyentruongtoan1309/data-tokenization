@@ -1,0 +1,45 @@
+:root {
+    --background: linear-gradient(180deg, rgba(0,183,79,1) 0%, rgba(34,115,90,1) 50%, rgba(34,95,115,1) 100%);
+}
+
+.dark {
+    --background: linear-gradient(180deg, #151515 0%, #04431f 50%, #22735a 100%);
+}
+
+body {
+    background-image: var(--background);
+    background-color: initial;
+    background-size: initial;
+    background-origin: initial;
+    background-position: initial;
+    background-repeat: initial;
+    background-attachment: initial;
+}
+
+input[type=file]::file-selector-button {
+    color: var(--primary);
+}
+
+// Custom scrollbar
+.custom-scrollbar{
+    &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        background-color: transparent;
+    }
+    &::-webkit-scrollbar {
+        width: 8px;
+        background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        height: 100px;
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #ccc;
+    }
+    &::-webkit-scrollbar:horizontal {
+        height: 8px;
+    }
+}

@@ -4,6 +4,9 @@ import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	server: {
+		hmr: false // Disable HMR
+	},
 	plugins: [react()],
 	resolve: {
 		alias: {

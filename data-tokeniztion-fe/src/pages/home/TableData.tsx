@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 // Utility function to truncate strings
 const truncate = (str: string, n: number) => {
@@ -9,7 +9,7 @@ const truncate = (str: string, n: number) => {
 const TableData: React.FC<{ tableData: Array<any> }> = ({ tableData }) => {
 	return (
 		tableData.length > 0 && (
-			<Table className='my-5 mx-auto max-w-screen-xl'>
+			<Table className='my-5 mx-auto bg-white'>
 				<TableHeader>
 					<TableRow>
 						{Object.keys(tableData[0]).map((key) => (
