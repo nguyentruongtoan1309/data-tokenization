@@ -19,11 +19,11 @@
       "function": {
         "S3Triggerde9b7ba6": {
           "deploymentBucketName": "amplify-datatokenizationbe-dev-cce54-deployment",
-          "s3Key": "amplify-builds/S3Triggerde9b7ba6-3530397a587568393037-build.zip"
+          "s3Key": "amplify-builds/S3Triggerde9b7ba6-68613936496339546b6d-build.zip"
         },
         "rawDataHandler": {
           "deploymentBucketName": "amplify-datatokenizationbe-dev-cce54-deployment",
-          "s3Key": "amplify-builds/rawDataHandler-7237474c706a494d397a-build.zip"
+          "s3Key": "amplify-builds/rawDataHandler-4d42563251376a4c4e36-build.zip"
         }
       },
       "storage": {
