@@ -8,7 +8,7 @@ const truncate = (str: string, n: number) => {
 
 const TableData: React.FC<{ tableData: Array<any> }> = ({ tableData }) => {
 	return (
-		tableData.length > 0 && (
+		tableData?.length > 0 ? (
 			<Table className='my-5 mx-auto bg-[var(--bg-table)]'>
 				<TableHeader>
 					<TableRow>
@@ -31,7 +31,7 @@ const TableData: React.FC<{ tableData: Array<any> }> = ({ tableData }) => {
 					))}
 				</TableBody>
 			</Table>
-		)
+		) : <div className='text-center text-white my-10'>No data available</div>
 	);
 };
 

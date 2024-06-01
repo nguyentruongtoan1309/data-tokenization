@@ -80,7 +80,8 @@ function FileUpload() {
 					},
 				},
 			}).result;
-			console.log('Succeeded: ', result);
+			// console.log('Succeeded: ', result);
+			alert('Upload successfully');
 		} catch (error) {
 			toast.error((error as Error)?.message, {
 				position: 'top-right',
